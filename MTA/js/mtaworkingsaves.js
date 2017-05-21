@@ -1,24 +1,9 @@
-
-
-
-//this is an object, which may come out on browser out of order. Also, key names must not be repeated
+//this is an object, key names may not be repeated
 var allLines = {
-  //this ordering is a cheat. would not work if key had to be something else.
   N:["Times Square","34th","28th","23rd","Union Square", "8th"],
   L: ["8th", "6th", "Union Square", "3rd", "1st"],
   6: ["Grand Central", "33rd", "28th", "23rd", "Union Square", "Astor Place"]
 };
-
-// var firstStop = allLines.indexOf("Times");
-//
-// // //this is an array, will stay in order. nb. this didn't work i.e 6 allLinesArr[0]
-// // http://stackoverflow.com/questions/6857468/converting-a-js-object-to-an-array
-// // var allLinesArr = Object.keys(allLines).map(function (key) { return allLines[key]; });
-//
-// //in console allLines.N[0] would access 8th
-//
-//allLines.N.indexOf("34th"); this works
-
 
 var planTrip = function (lineOn, start, lineOff, finish)
   {
@@ -27,17 +12,21 @@ var planTrip = function (lineOn, start, lineOff, finish)
   var sliceArr = allLines[lineOn].slice(startIndex,finishIndex)
   var numberOfStops1Line = (finishIndex-startIndex)
 
-    if (finishIndex<startIndex) {{numberOfStops1Line = (numberOfStops1Line*-1)}
-    var reversed = allLines[lineOn].reverse();
-    sliceArr = reversed.slice(finishIndex-1,startIndex-1)}
+    // if (finishIndex<startIndex) {
+    //   {
+    //   numberOfStops1Line = (numberOfStops1Line*-1)
+    //   }
+    // var reversed = allLines[lineOn].reverse();
+    // sliceArr = reversed.slice(finishIndex-1,startIndex-1)
+    // }
 
   {console.log(
     "You must travel through the following stops on the " +  "line: "+  sliceArr + " and get off at the " + finish + " station on the " + lineOff+ " line. "+numberOfStops1Line +" stops in total."
   );
 }
-};
+};//top
 
-planTrip("N", "8th", "N", "34th");
+planTrip("N", "34th", "N", "8th");
  //allLines[i].slice(startIndex,finishIndex)
 //               sliceArr + " and get out at " + finish +" on the " +lineOff+" line. "+ numberOfStops1Line +" stops in total.");
 

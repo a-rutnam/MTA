@@ -1,43 +1,73 @@
-
-
-
-//this is an object, which may come out on browser out of order. Also, key names must not be repeated
+//this is an object, key names must not be repeated
 var allLines = {
-  //this ordering is a cheat. would not work if key had to be something else.
   N:["Times Square","34th","28th","23rd","Union Square", "8th"],
   L: ["8th", "6th", "Union Square", "3rd", "1st"],
   6: ["Grand Central", "33rd", "28th", "23rd", "Union Square", "Astor Place"]
 };
 
-// var firstStop = allLines.indexOf("Times");
-//
-// // //this is an array, will stay in order. nb. this didn't work i.e 6 allLinesArr[0]
-// // http://stackoverflow.com/questions/6857468/converting-a-js-object-to-an-array
-// // var allLinesArr = Object.keys(allLines).map(function (key) { return allLines[key]; });
-//
-// //in console allLines.N[0] would access 8th
-//
-//allLines.N.indexOf("34th"); this works
+var planTrip = function (lineOn, start, lineOff, finish){
 
-
-var planTrip = function (lineOn, start, lineOff, finish)
-  {
   var startIndex = (allLines[lineOn].indexOf(start));
-  var finishIndex = (allLines[lineOn].indexOf(finish));
+  var finishIndex = (allLines[lineOff].indexOf(finish));
   var sliceArr = allLines[lineOn].slice(startIndex,finishIndex)
   var numberOfStops1Line = (finishIndex-startIndex)
+  if (lineOn===lineOff) {
 
-    if (finishIndex<startIndex) {{numberOfStops1Line = (numberOfStops1Line*-1)}
-    var reversed = allLines[lineOn].reverse();
-    sliceArr = reversed.slice(finishIndex-1,startIndex-1)}
+  if (finishIndex<startIndex) {
+    {numberOfStops1Line = (numberOfStops1Line*-1)}
+  var reversed = allLines[lineOn].reverse();
+  sliceArr1Line = reversed.slice(finishIndex-1,startIndex-1)
+  }
 
-  {console.log(
-    "You must travel through the following stops on the " +  "line: "+  sliceArr + " and get off at the " + finish + " station on the " + lineOff+ " line. "+numberOfStops1Line +" stops in total."
-  );
-}
-};
+console.log(//if on same line
+  "You must travel through the following stops on the " + lineOn +  " line: "+  sliceArr1Line + " and get off at the " + finish + " station. "+ numberOfStops1Line +" stops in total.");
+}//if only one line
+else if (lineOn !== lineOff) {
+    var unionSquareIndexL1 = (allLines[lineOn].indexOf("Union Square"));
+      var unionSquareIndexL2 = (allLines[lineOff].indexOf("Union Square"));
+      var sliceArrLine1 = allLines[lineOn].slice(startIndex,unionSquareIndexL1)
+      var sliceArrLine2 = allLines[lineOff].slice(unionSquareIndexL2+1, finishIndex)
+      var numberOfStops2LinesA = (unionSquareIndexL1 - startIndex)
+      var numberOfStops2LinesB = (finishIndex - unionSquareIndexL2)
+      var totalStops2Lines = (numberOfStops2LinesB+numberOfStops2LinesA)
 
-planTrip("N", "8th", "N", "34th");
+    console.log(//if on diff lines
+          "You must travel through the following stop(s) on the " + lineOn +  " line: "+
+           sliceArrLine1 + " and change lines at Union Square Station to the " + lineOff +
+           " line. Continue travelling through the following stop(s): " + sliceArrLine2 + ", and get off at " +
+           finish + " station. "+totalStops2Lines +" stops in total."
+         );
+
+}//if there are two lines
+
+};//plantrip
+
+planTrip("N", "34th", "L", "1st");
+
+
+    //   if (startIndex>unionSquareIndexL1){
+    //   {numberOfStops2LinesA = ((unionSquareIndexL1 - startIndex)*-1)}
+    //   var reversed = allLines[lineOn].reverse();
+    //   sliceArrLine1 = reversed.slice(unionSquareIndexL1,startIndex)
+    // }//if start large
+    //
+    //
+    //   if (finishIndex<unionSquareIndexL2){
+    //   numberOfStops2LinesB = ((finishIndex  - unionSquareIndexL2 )*-1)
+    // }//if finish small
+      // var reversed = allLines[lineOn].reverse();
+      // sliceArr = reversed.slice(finishIndex-1,startIndex-1)
+      // }
+
+    //   {console.log(//if on diff lines
+    //     "You must travel through the following stop(s) on the " + lineOn +  " line: "+
+    //      sliceArrLine1 + " and change lines at Union Square Station to the " + lineOff +
+    //      " line. Continue travelling through the following stop(s): " + sliceArrLine2 + ", and get off at " +
+    //      finish + " station. "+totalStops2Lines +" stops in total."
+    //    );
+    //   }
+    // };
+
  //allLines[i].slice(startIndex,finishIndex)
 //               sliceArr + " and get out at " + finish +" on the " +lineOff+" line. "+ numberOfStops1Line +" stops in total.");
 
