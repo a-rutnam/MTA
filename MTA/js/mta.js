@@ -1,84 +1,79 @@
-//
-// //this is an object, which may come out on broweser out order, key names must not be repeated
+
+//this is an object, which may come out on browser out of order. Also, key names must not be repeated
 var allLines = {
-  n:["n", "Times Square","34th","28th","23rd","Union Square", "8th"],
+  //this ordering is a cheat. would not work if key had to be something else.
+  Line1:["N", "Times Square","34th","28th","23rd","Union Square", "8th"],
+  Line2: ["L", "8th", "6th", "Union Square", "3rd", "1st"],
+  Line3: ["6", "Grand Central", "33rd", "28th", "23rd", "Union Square", "Astor Place"]
 };
 
-// //this is an array, will stay in order
-// var arr = Object.keys(allLines).map(function (key) { return allLines[key]; });
+// //this is an array, will stay in order. nb. this didn't work i.e 6 allLinesArr[0]
 // http://stackoverflow.com/questions/6857468/converting-a-js-object-to-an-array
-
 var allLinesArr = Object.keys(allLines).map(function (key) { return allLines[key]; });
 
 
-var planTrip = function (lineOn, start, finish)
-  {
-  // var startingPointIndex = function () this fucker fucks things up
-
-    for (var i = 0; i < allLinesArr.length; i++)
+var planTrip = function (lineOn, start, lineOff, finish)
+{
+  for (var i = 0; i < allLinesArr.length; i++)
+    {
+    if (lineOn === allLinesArr[i][0])
+      {
+      for (var j = 0; j<allLinesArr[i].length; j++)
         {
-        if (lineOn === allLinesArr[i][0])
+        if (start === allLinesArr[i][j])
           {
-            for (var j = 0; j<allLinesArr[i].length; j++)
+          for (var k = 0; k<allLinesArr[i].length; k++)
             {
-              if (start === allLinesArr[i][j])
-                {
-                for (var k = 0; k<allLinesArr[i].length; k++)
-                {
-                  if (finish === allLinesArr[i][k])
-                  var startIndex = (allLinesArr[0].indexOf(start));
-                  var finishIndex = (allLinesArr[0].indexOf(finish));
-                  // var sliceArr = allLinesArr[i].slice[startIndex,finishIndex]
-                  {
-                    console.log("You must travel through the following stops on the " + lineOn + " line: " + allLinesArr[0].slice(startIndex,finishIndex)+ " and " + finish +". " + ((finishIndex-startIndex)+1) +" stops in total.");
-                  // console.log((finishIndex-startIndex)+1 +" stops in total." + (sliceArr));
-                   }//console for k
-              }//if k
-              } //for  k
-              {
-                // console.log("start matches");
-              }//console for j
-            }// if j
-          }//for j
+            var startIndex = (allLinesArr[i].indexOf(start));
+            var finishIndex = (allLinesArr[i].indexOf(finish));
+            var sliceArr = allLinesArr[i].slice(startIndex,finishIndex)
+            var numberOfStops1Line = (finishIndex-startIndex)
+            if (finishIndex<startIndex) {numberOfStops1Line = (numberOfStops1Line*-1)}
+              //((finishIndex-startIndex)+1)* -1)}
+            if (lineOn === allLinesArr[i][0] && start === allLinesArr[i][j] && finish === allLinesArr[i][k])
+if (lineOn === lineOff)
+ {
+              console.log("You must travel through the following stops on the " + lineOn + " line: " + //allLinesArr[i].slice(startIndex,finishIndex)
+              sliceArr + " and get out at " + finish +" on the " +lineOff+" line. "+ numberOfStops1Line +" stops in total.");
 
-          {
-          // console.log("line matches");
-        }//console log for i
-        }//if i
-    //for
-  };
+              }//console.log for all three matching
 
-
-planTrip("n", "34th", "8th");
-
-
-
-// ////       // arr.indexOf(line)
-//   iterate through arr and if line matches a value, this var will become the indext of that i.e timessquare equals 2  ]
-// var endingpoint = [ditto] and 8th = 6
-//
-// var numberofstopsinc = startingPoint + endingpoint
-//
-
-
-
-//
-// "You must travel through the following stops on the nLine [line i.e what they entered] Times Square[start], 34th, 28th, 23rd, Union Square, 8th [finish]."
-// "6 stops in total."
-
-// The program takes the line and stop that a user is getting on at and the line and stop that user is getting off at and prints the journey and the total number of stops for the trip in the console:
-//
-
-
-
-// var lLine = {
-//   stop1: "8th",
-//   stop2: "6th",
-//   stop3: "Union Square",
-//   stop4: "3rd",
-//   stop5:"1st",
-//
+            }//if line AND Start AND finish matches.
+          } //for every stop in matching line array (again)
+        }// if start matches
+      }//for every stop in matching line array.
+    }//if line matches
+// else if {
+// if (lineOn !== lineOff)
+//         var unionSquareIndex = allLinesArr[l].indexOf("Union Square");
+//       var finishIndex2 = allLinesArr[l].indexOf(finish);
+//       var twoLineslice = allLinesArr[l].slice(unionSquareIndex,finishIndex2)
+//       var numberOfStopsLine1 = ((startIndex-unionSquareIndex)+1);
+// //
+//     if (lineOff === allLinesArr[l][0] && finish === allLinesArr[l][m])
+//   console.log("You must travel through the following stops on the " + lineOn + " line and get off and change to the " + lineOff  + " line at Union Square. From here travel the following stops " + twoLineslice + " and get out at " + finish +". " + numberOfStops + " stops in total."
+// // )
 // }
+// }
+
+
+  };//for every key in allLinesArr
+
+
+planTrip("N", "34th", "N", "8th");
+
+
+
+//for changing lines e.g. n, times square, 1st (on L line)
+// k will go through Key L and not find 1st. so (else) we need to find 1st in another line
+
+// we need to go from 34th to indexOf.union square then go through entire allLinesArr keys from top and do the same as if within one line, but always from indexofUnionSquare (in line that matches finish)
+// else if lineOff !== lineOn
+// for (var i = 0; i < allLinesArr.length; i++)
+//   {
+//   if (lineOff === allLinesArr[i][0])
+//   and do the same??
+
 
 // MTA Lab
 //
